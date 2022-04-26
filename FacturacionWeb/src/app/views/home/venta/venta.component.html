@@ -1,0 +1,138 @@
+<p-card>
+  <div class="p-field p-grid">
+    <div class="p-col-1">
+      <av-button type="button" [label]="'module.componentNames.btnNew' | translate" icon="pi pi-plus p-button-icon-left"
+        class="p-button-text" (click)="openNew()"></av-button>
+    </div>
+  </div>
+
+  <p-table #dt styleClass="p-datatable-sm p-datatable-responsive-demo" [value]="ventas" [lazy]="true"
+    [totalRecords]="totalRecords" [rows]="10" [paginator]="true" [(selection)]="selectedVentas" [rowHover]="true"
+    dataKey="id" currentPageReportTemplate="Mostrar {first} a {last} de {{ totalRecords}} registros"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>
+          {{ "module.venta.id" | translate }}
+        </th>
+        <th>
+          {{ "module.venta.fecha" | translate }}
+        </th>
+        <th style="width: 8rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-venta let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="venta">
+        <td>
+          {{ venta.id }}
+        </td>
+        <td>
+          {{ venta.fecha }}
+        </td>
+        <td style="text-align: center">
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text"
+            (click)="editVenta(venta)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<p-dialog [(visible)]="ventaDialog" [style]="{ width: '450px' }" [header]="'module.venta.newSale' | translate"
+  [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form id="ventaForm" [formGroup]="ventaForm" class="form-horizontal ng-untouched ng-pristine ng-valid">
+      <div class="p-grid">
+        <br><br>
+        <div class="p-col-12 p-p-2">
+          <av-customer formControlName="cliente" required [label]="'module.venta.customerAvailable' | translate"
+            [selectionLabel]="'module.venta.customerAvailable' | translate" [(ngModel)]="cliente"
+            (sendCustomer)="receiveCliente($event)"></av-customer>
+          <small class="p-invalid"
+            *ngIf="submitted && f.cliente.errors">{{'module.venta.validaciones.clienteRequerido'|translate}}
+          </small>
+        </div>
+      </div>
+    </form>
+
+    <form id="ventaForm" [formGroup]="ventaProductoForm" class="form-horizontal ng-untouched ng-pristine ng-valid">
+      <div class="p-grid">
+        <div class="p-col-12">
+          <av-producto formControlName="producto" required [label]="'module.venta.producto' | translate"
+            [selectionLabel]="'module.venta.producto' | translate" [(ngModel)]="producto"
+            (sendCustomer)="receiveProducto($event)"></av-producto>
+            <small class="p-invalid"
+            *ngIf="submittedProducto && f2.producto.errors">{{'module.venta.validaciones.productoRequerido'|translate}}
+          </small>
+        </div>
+        <div class="p-col-12">
+          <av-input-number formControlName="cantidad" [label]="'module.venta.cantidad'|translate"
+            [(ngModel)]="cantidad"></av-input-number>
+            <small class="p-invalid"
+            *ngIf="submittedProducto && f2.cantidad.errors">{{'module.venta.validaciones.cantidadRequeridad'|translate}}
+          </small>
+        </div>
+        <div class="p-p-2 p-col-5 p-d-flex p-ai-center p-jc-left">
+          <p-button label="Agregar Producto" icon="pi pi-plus" (click)="addProducto(producto)"></p-button>
+        </div>
+      </div>
+    </form>
+
+    <p-table #dt styleClass="p-datatable-sm p-datatable-responsive-demo" [value]="listaProductos" [lazy]="true"
+      [totalRecords]="totalRecords" [rows]="10" [(selection)]="selectedVentas" [rowHover]="true" dataKey="id">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>
+            {{ "module.venta.productos.descripcion" | translate }}
+          </th>
+          <th>
+            {{ "module.venta.productos.valorUnitario" | translate }}
+          </th>
+          <th>
+            {{ "module.venta.productos.valorTotal" | translate }}
+          </th>
+          <th style="width: 8rem"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-venta let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="venta">
+          <td>
+            {{ venta.descripcion }}
+          </td>
+          <td>
+            {{ venta.valorUnitario }}
+          </td>
+          <td>
+            {{ venta.valorTotal }}
+          </td>
+          <td style="text-align: center">
+            <button pButton pRipple icon="pi pi-minus-circle" class="p-button-rounded p-button-text"
+              (click)="deleteVenta(venta)"></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <small class="p-invalid"
+      *ngIf="submitted && listaProductos.length < 1">{{'module.venta.validaciones.productosRequerido'|translate}}
+    </small>
+    <div class="p-p-2 p-col-12" style="text-align:left">
+      <h4> Total: {{ totalVenta }}</h4>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <av-button [label]="'module.componentNames.btnCancel' | translate" icon="pi pi-times" class="p-button-text"
+      (click)="hideDialog()"></av-button>
+    <av-button [label]="'module.componentNames.btnSave' | translate" icon="pi pi-save" class="p-button-text"
+      (click)="saveVenta(venta)"></av-button>
+  </ng-template>
+</p-dialog>
+
+<p-toast baseZIndex="10000"></p-toast>
+
+<p-confirmDialog [style]="{ width: '450px' }" [acceptLabel]="'module.venta.btnAccept' | translate"
+  [rejectLabel]="'module.venta.btnCancel' | translate"></p-confirmDialog>
+
+<p-blockUI [blocked]="loading">
+  <p-progressSpinner></p-progressSpinner>
+</p-blockUI>

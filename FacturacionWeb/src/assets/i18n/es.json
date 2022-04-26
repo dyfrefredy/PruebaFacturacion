@@ -1,0 +1,22 @@
+﻿{
+  "module": {
+    "componentNames": {
+      "btnAccept": "Acceptar",
+      "btnCancel": "Cancelar",
+      "btnSave": "Guardar",
+      "btnFilter": "Filtrar",
+      "btnApprove": "Aprobar",
+      "btnReject": "Rechazar",
+      "btnAdd": "Agregar",
+      "confirm": "Confirmar",
+      "btnNew": "Nuevo",
+      "btnDisabled": "Deshabilitar",
+      "currentPageReport": "Show {first} to {last} of {totalRecords} records",
+      "currentPageReportDetails": {
+        "show": "Show {first} to {last} of ",
+        "records": "records"
+      },
+      "select": "Seleccione"
+    }
+  }
+}

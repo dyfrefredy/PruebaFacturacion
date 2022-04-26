@@ -1,0 +1,46 @@
+﻿{
+  "module": {
+    "componentNames": {
+      "btnAccept": "Accept",
+      "btnCancel": "Cancel",
+      "btnSave": "Save",
+      "btnFilter": "Filter",
+      "btnApprove": "Approve",
+      "btnReject": "Reject",
+      "btnAdd": "Add",
+      "confirm": "Confirm",
+      "btnNew": "New",
+      "btnDisabled": "Disable",
+      "currentPageReport": "Show {first} to {last} of {totalRecords} records",
+      "currentPageReportDetails": {
+        "show": "Show {first} to {last} of ",
+        "records": "records"
+      },
+      "select": "Select"
+    },
+    "home": {
+      "moduleName": "Home",
+      "venta": "VENTA"
+    },
+    "venta": {
+      "moduleName": "Venta",
+      "newSale": "Nueva venta",
+      "customerAvailable": "Cliente",
+      "id": "Id",
+      "fecha": "Fecha",
+      "producto": "Producto",
+      "cantidad": "Cantidad",
+      "productos": {
+        "descripcion": "Descripción",
+        "valorUnitario": "Valor unitario",
+        "valorTotal": "Valor total"
+      },
+      "validaciones": {
+        "clienteRequerido": "Cliente requerido",
+        "productosRequerido": "Debe agregar por lo menos un producto",
+        "productoRequerido": "Producto requerido",
+        "cantidadRequeridad": "Cantidad requerida"
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<span class="p-float-label">
+	<input [maxlength]="maxlength" type="number" pInputText [(ngModel)]="value" (onTouched)="onTouched()"
+		(ngModelChange)="onChange()" [size]="size" style="width: 100%;" [disabled]="disabled">
+	<label for="field-id">{{label|translate}}</label>
+</span>
